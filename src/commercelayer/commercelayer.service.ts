@@ -1,4 +1,4 @@
-import CommerceLayer from '@commercelayer/sdk';
+import CommerceLayer, { Sku } from '@commercelayer/sdk';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../auth/auth.service';
@@ -7,7 +7,7 @@ import { AuthService } from '../auth/auth.service';
 export class CommercelayerService {
   constructor(private readonly configService: ConfigService, private readonly authService: AuthService) {}
 
-  async getSkuBySlug(clientId: string, skuReference: string) {
+  async getSkuBySlug(clientId: string, skuReference: string): Promise<Sku> {
     const token = await this.authService.getToken('client_credentials', clientId);
 
     const client = CommerceLayer({
